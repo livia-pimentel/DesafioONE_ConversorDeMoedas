@@ -7,7 +7,8 @@ import java.net.http.HttpResponse;
 
 public class ConsultExchange {
 
-    public ResponseExchange ConsultExchange(String currency_code) {
+    // Metodo
+    public ResponseExchange searchCurrency(String currency_code) {
         // Cria a variavel e coloca o nome que foi salvo em vaiaveis de ambiente
         String apiKey = System.getenv("API_KEY");
 

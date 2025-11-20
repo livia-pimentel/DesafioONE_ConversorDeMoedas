@@ -1,7 +1,12 @@
 public class Main {
     public static void main(String[] args) {
-        // Configuração da Minha API Key como variavel de ambiente
-        String myApiKey = System.getenv("API_KEY");
-        System.out.println("Minha chave é: " + myApiKey);
+        System.out.println("========= Testando consulta da API =========");
+        // Instancia a classe
+        ConsultExchange search = new ConsultExchange();
+        // Chama o metodo searchCurrency e passa a moeda como argumento
+        ResponseExchange response = search.searchCurrency("BRL");
+
+        System.out.println(response);
+        System.out.println("========= Fim do =========");
     }
 }
