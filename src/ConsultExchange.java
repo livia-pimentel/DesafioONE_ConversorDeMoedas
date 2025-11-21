@@ -29,11 +29,11 @@ public class ConsultExchange {
 
             // Verifica erros de status da API
             if (response.statusCode() == 404) {
-                throw new ErrorConsultApiException("Moeda não encontrada: " + currency_code);
+                throw new ErrorConsultApiException("Moeda não encontrada [ " + currency_code + " ]");
             }
 
             if (response.statusCode() != 200) {
-                throw new ErrorConsultApiException("Erro na API. Status: " + response.statusCode());
+                throw new ErrorConsultApiException("Erro na API. Status: [ " + response.statusCode() + " ]");
             }
 
             return converter.obtainData(response.body(), ResponseExchange.class);

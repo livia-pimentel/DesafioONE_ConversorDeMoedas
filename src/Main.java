@@ -8,10 +8,18 @@ public class Main {
         System.out.println("========= Testando consulta da API =========");
         // Instancia a classe
         ConsultExchange search = new ConsultExchange();
-        // Chama o metodo searchCurrency e passa a moeda como argumento
-        ResponseExchange response = search.searchCurrency("BRL");
 
-        System.out.println(convertToFormatterJson.convertToJson(response));
+        try {
+            // Chama o metodo searchCurrency e passa a moeda como argumento
+            ResponseExchange response = search.searchCurrency("1");
+            System.out.println(convertToFormatterJson.convertToJson(response));
+        } catch (ErrorConsultApiException e) {
+            System.out.println("Atenção: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Erro inesperado: " + e.getMessage());
+        }
+
+
         System.out.println("========= Fim do Programa=========");
     }
 }
