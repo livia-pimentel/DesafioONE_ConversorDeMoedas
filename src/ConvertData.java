@@ -8,9 +8,12 @@ public class ConvertData implements ToConvertData{
             .setPrettyPrinting()
             .create();
 
-
     @Override
     public <T> T obtainData(String json, Class<T> targetClass) {
         return gson.fromJson(json, targetClass);
+    }
+
+    public String convertToJson(Object object) {
+        return gson.toJson(object);
     }
 }
