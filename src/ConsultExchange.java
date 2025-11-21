@@ -22,7 +22,8 @@ public class ConsultExchange {
             HttpResponse<String> response = HttpClient
                     .newHttpClient()
                     .send(request, HttpResponse.BodyHandlers.ofString());
-            return new Gson().fromJson(response.body(), ResponseExchange.class);
+//            return new Gson().fromJson(response.body(), ResponseExchange.class);
+            return
         } catch (Exception e) {
             throw new RuntimeException("Moeda não encontrada.");
         }
