@@ -1,10 +1,14 @@
 import java.util.InputMismatchException;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class MainMenu {
     // Atributos
     private ConsultExchange consultant = new ConsultExchange();
     private Scanner scanner = new Scanner(System.in);
+    // Add o dicionário para ler o CSV
+    private CurrencyDictionary dictionary = new CurrencyDictionary();
 
     public void printMenu() {
         var option = -1;
@@ -19,6 +23,9 @@ public class MainMenu {
                     4) Real brasileiro => Dólar
                     5) Real brasileiro => Euro
                     6) Euro => Libra Esterlina
+                    
+                    7) Ver lista (inglês) de moedas disponíveis
+                    8) Nova conversão (Escolha qualquer moeda)
                     
                     0) Sair   
                     ******************************************************************* 
@@ -48,6 +55,12 @@ public class MainMenu {
                         break;
                     case 6:
                         convertCurrency("EUR", "GBP");
+                    case 7:
+                        showAvailableCurrencies();
+                        break;
+                    case 8:
+                        newConversion();
+                        break;
                     case 0:
                         System.out.println("======= PROGRAMA ENCERRADO =======");
                         break;
@@ -106,4 +119,45 @@ public class MainMenu {
             }
         }
     }
+
+    private void showAvailableCurrencies() {
+        System.out.println("\n***************************************************************");
+        System.out.println("                    LIST OF AVAILABLE CURRENCIES");
+        System.out.println("****************************************************************");
+
+        System.out.printf("%-6s | %-35s | %s%n", "CODE", "NAME", "COUNTRY");
+        System.out.println("-------+-------------------------------------+-------------------------");
+
+        Map<String, CurrencyData> allCurrencies = dictionary.getAllCurrencies();
+        Map<String, CurrencyData> sortedCurrencies = new TreeMap<>(allCurrencies);
+
+        for (Map.Entry<String, CurrencyData> entry : sortedCurrencies.entrySet()) {
+            CurrencyData c = entry.getValue();
+            System.out.printf("%-6s | %-35s | %s%n", c.code(), c.name(), c.country());
+        }
+
+        System.out.println("****************************************************************");
+        System.out.println("Pressione Enter para voltar...");
+        scanner.nextLine(); // Limpa o buffer
+        scanner.nextLine(); // Espera o Enter
+    }
+
+    private void newConversion() {
+        scanner.nextLine(); // Limpa o buffer do nextInt anterior
+
+        System.out.println("Digite a sigla da moeda BASE (ex: USD): ");
+        String base = scanner.nextLine().toUpperCase().trim();
+
+        System.out.println("Digite a sigla da moeda que deseja CONVERTER (ex: JPY):");
+        String target = scanner.nextLine().toUpperCase().trim();
+
+        // Validação
+        if (base.length() != 3 || target.length() != 3) {
+            System.out.println("Erro: As siglas devem ter 3 letras.");
+            return;
+        }
+
+        convertCurrency(base, target);
+    }
+
 }
