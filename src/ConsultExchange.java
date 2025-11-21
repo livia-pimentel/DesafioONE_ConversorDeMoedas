@@ -1,5 +1,6 @@
 import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -25,9 +26,19 @@ public class ConsultExchange {
             HttpResponse<String> response = HttpClient
                     .newHttpClient()
                     .send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Verifica erros de status da API
+            if (response.statusCode() == 404) {
+                throw new ErrorConsultApiException("Moeda não encontrada: " + currency_code);
+            }
+
+            if (response.statusCode() != 200) {
+                throw new ErrorConsultApiException("Erro na API. Status: " + response.statusCode());
+            }
+
             return converter.obtainData(response.body(), ResponseExchange.class);
-        } catch (Exception e) {
-            throw new RuntimeException("Moeda não encontrada.");
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException("Não foi possível conectar com a API.", e);
         }
     }
 }
