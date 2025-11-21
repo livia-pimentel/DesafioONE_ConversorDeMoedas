@@ -52,17 +52,32 @@ public class MainMenu {
                     System.out.println("Opção inválida!");
             }
         }
+
+        scanner.close();
     }
 
     // Metodo para fazer a conversão da opção desejada
     private void convertCurrency(String baseCurrency, String targetCurrency) {
-        System.out.println("Realização conversão de " + baseCurrency + " para " + targetCurrency);
-
         try {
+            // Buscar a cotação da API
             ResponseExchange response = consultant.searchCurrency(baseCurrency);
-            Double taxa = response.conversion_rates().get(targetCurrency);
 
-            System.out.println("A taxa atual é: " + taxa);
+            // Pega a taxa da moeda desejada na API
+            Double rate = response.conversion_rates().get(targetCurrency);
+
+            // Pergunta o valor ao usuário
+            System.out.println("Digite o valor em " + baseCurrency + " que deseja converter para " + targetCurrency);
+            double amount = scanner.nextDouble();
+
+            // Multiplica o valor digitado pela taxa da moeda desejada
+            double finalValue = amount * rate;
+
+            // Mostrar resultado formatado
+            System.out.println("-------------------------------------");
+            System.out.printf("A taxa de conversão de %s para %s é %.3f%n", baseCurrency, targetCurrency, rate);
+            System.out.printf("%.2f convertido para %s é: %.2f\n", amount, targetCurrency, finalValue);
+            System.out.println("-------------------------------------");
+
         } catch (Exception e) {
             System.out.println("Erro na conversão: " + e.getMessage());
         }
