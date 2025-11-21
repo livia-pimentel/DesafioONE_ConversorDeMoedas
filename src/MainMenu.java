@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MainMenu {
@@ -11,7 +12,7 @@ public class MainMenu {
         while (option !=0) {
             var menu = """
                     ********************** CONVERSOR DE MOEDAS **********************
-                       
+                    
                     1) Dólar => Euro
                     2) Euro => Dólar
                     3) Dólar => Real brasileiro
@@ -24,32 +25,43 @@ public class MainMenu {
                     Esolha uma opção: 
                     """;
 
-            System.out.println(menu);
-            option = scanner.nextInt();
+            try {
+                System.out.println(menu);
 
-            switch (option) {
-                case 1:
-                    convertCurrency("USD", "EUR");
-                    break;
-                case 2:
-                    convertCurrency("EUR", "USD");
-                    break;
-                case 3:
-                    convertCurrency("USD", "BRL");
-                    break;
-                case 4:
-                    convertCurrency("BRL", "USD");
-                    break;
-                case 5:
-                    convertCurrency("BRL", "EUR");
-                    break;
-                case 6:
-                    convertCurrency("EUR", "GBP");
-                case 0:
-                    System.out.println("Saindo...");
-                    break;
-                default:
-                    System.out.println("Opção inválida!");
+                option = scanner.nextInt();
+
+                switch (option) {
+                    case 1:
+                        convertCurrency("USD", "EUR");
+                        break;
+                    case 2:
+                        convertCurrency("EUR", "USD");
+                        break;
+                    case 3:
+                        convertCurrency("USD", "BRL");
+                        break;
+                    case 4:
+                        convertCurrency("BRL", "USD");
+                        break;
+                    case 5:
+                        convertCurrency("BRL", "EUR");
+                        break;
+                    case 6:
+                        convertCurrency("EUR", "GBP");
+                    case 0:
+                        System.out.println("======= PROGRAMA ENCERRADO =======");
+                        break;
+                    default:
+                        System.out.println("Opção inválida!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Erro. Por favor, digite apenas números inteiros.");
+
+                // Limpa o buffer, para evitar loop infinito
+                scanner.nextLine();
+
+            } catch (ErrorConsultApiException e) {
+                System.out.println("Erro na API: " + e.getMessage());
             }
         }
 
@@ -67,7 +79,7 @@ public class MainMenu {
 
             // Pergunta o valor ao usuário
             System.out.println("Digite o valor em " + baseCurrency + " que deseja converter para " + targetCurrency);
-            double amount = scanner.nextDouble();
+            double amount = readDoubleSafe();
 
             // Multiplica o valor digitado pela taxa da moeda desejada
             double finalValue = amount * rate;
@@ -80,6 +92,18 @@ public class MainMenu {
 
         } catch (Exception e) {
             System.out.println("Erro na conversão: " + e.getMessage());
+        }
+    }
+
+    // Fica no loop até um número ser digitado
+    private double readDoubleSafe() {
+        while (true) {
+            try{
+                return scanner.nextDouble();
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Digite apenas números.");
+                scanner.nextLine(); // Limpa o buffer
+            }
         }
     }
 }
