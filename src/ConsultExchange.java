@@ -6,9 +6,12 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class ConsultExchange {
+    // Atributo
+    private ConvertData converter = new ConvertData();
 
     // Metodo
     public ResponseExchange searchCurrency(String currency_code) {
+
         // Cria a variavel e coloca o nome que foi salvo em vaiaveis de ambiente
         String apiKey = System.getenv("API_KEY");
 
@@ -22,8 +25,7 @@ public class ConsultExchange {
             HttpResponse<String> response = HttpClient
                     .newHttpClient()
                     .send(request, HttpResponse.BodyHandlers.ofString());
-//            return new Gson().fromJson(response.body(), ResponseExchange.class);
-            return
+            return converter.obtainData(response.body(), ResponseExchange.class);
         } catch (Exception e) {
             throw new RuntimeException("Moeda não encontrada.");
         }
