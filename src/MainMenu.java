@@ -55,6 +55,7 @@ public class MainMenu {
                         break;
                     case 6:
                         convertCurrency("EUR", "GBP");
+                        break;
                     case 7:
                         showAvailableCurrencies();
                         break;
