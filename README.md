@@ -16,6 +16,10 @@
 - **Lista de Moedas**
 ![Lista de Moedas](assets/lista_moedas.png)
 
+- **GIF**
+https://github.com/user-attachments/assets/f50fae99-5a84-465a-a5b5-cba03da00214
+
+
 ## 🚀 Funcionalidades
 - **Conversão em Tempo Real:** Consumo da [ExchangeRate-API](https://www.exchangerate-api.com/) para obter cotações atualizadas.
 - **Menu Interativo:** Interface de console.
