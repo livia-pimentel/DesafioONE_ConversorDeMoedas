@@ -16,8 +16,8 @@
 - **Lista de Moedas**
 ![Lista de Moedas](assets/lista_moedas.png)
 
-- **GIF**
-https://github.com/user-attachments/assets/f50fae99-5a84-465a-a5b5-cba03da00214
+## 📺 Demonstração
+![GIF do Conversor Rodando](https://github.com/user-attachments/assets/f50fae99-5a84-465a-a5b5-cba03da00214)
 
 
 ## 🚀 Funcionalidades
