@@ -16,9 +16,12 @@
 - **Lista de Moedas**
 ![Lista de Moedas](assets/lista_moedas.png)
 
-## 📺 Demonstração
-![GIF do Conversor Rodando](https://github.com/user-attachments/assets/f50fae99-5a84-465a-a5b5-cba03da00214)
-
+- **Demonstração**
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/f50fae99-5a84-465a-a5b5-cba03da00214" controls="controls" width="80%">
+    Seu navegador não suporta a tag de vídeo.
+  </video>
+</div>
 
 ## 🚀 Funcionalidades
 - **Conversão em Tempo Real:** Consumo da [ExchangeRate-API](https://www.exchangerate-api.com/) para obter cotações atualizadas.
